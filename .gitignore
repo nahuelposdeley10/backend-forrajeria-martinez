@@ -1,0 +1,14 @@
+Dependencias
+/node_modules
+
+Entorno / secretos (nunca subir)
+.env
+.env.local
+.env.*.local
+*.local
+
+Vercel
+.vercel
+
+Logs
+*.log
