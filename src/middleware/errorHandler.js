@@ -31,8 +31,5 @@ export function errorHandler(err, req, res, next) {
   }
 
   console.error('[error]', err)
-  if (!config.isProd) {
-    return res.status(500).json({ error: err.message })
-  }
-  res.status(500).json({ error: 'Error interno del servidor.' })
+  return res.status(500).json({ error: err?.message || 'Error interno del servidor.', kind: err?.name })
 }
