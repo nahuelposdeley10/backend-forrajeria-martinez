@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import authRoutes from './auth.routes.js'
+import brandRoutes from './brand.routes.js'
 import productRoutes from './product.routes.js'
 import statsRoutes from './stats.routes.js'
 import uploadRoutes from './upload.routes.js'
@@ -11,6 +12,7 @@ router.get('/health', (req, res) =>
 )
 
 router.use('/auth', authRoutes)
+router.use('/brands', brandRoutes)
 router.use('/products', productRoutes)
 router.use('/stats', statsRoutes)
 router.use('/upload', uploadRoutes)

@@ -70,3 +70,11 @@ export const productFacetsQuerySchema = z.object({
 })
 
 export const idParamSchema = z.object({ id: objectId })
+
+export const brandSchema = z.object({
+  name: z.string().trim().min(1, 'El nombre de la marca es obligatorio'),
+})
+
+export const brandDeleteQuerySchema = z.object({
+  products: z.enum(['delete', 'unbrand']).optional(),
+})
