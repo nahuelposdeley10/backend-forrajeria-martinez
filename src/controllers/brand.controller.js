@@ -23,8 +23,44 @@ async function withCounts(brands) {
 }
 
 export const listBrands = asyncHandler(async (req, res) => {
-  const brands = await Brand.find().sort({ name: 1 }).lean()
-  res.json({ brands: await withCounts(brands) })
+  const page = Number(req.query.page ?? 1)
+  const limit = Number(req.query.limit ?? 100)
+  const search = (req.query.search || '').trim()
+
+  const filter = search
+    ? { name: { $regex: search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), $options: 'i' } }
+    : {}
+
+  const [total, rows] = await Promise.all([
+    Brand.countDocuments(filter),
+    Brand.find(filter)
+      .collation({ locale: 'es', strength: 2 })
+      .sort({ name: 1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean(),
+  ])
+
+  const names = rows.map((b) => b.name)
+  const productRows =
+    names.length > 0
+      ? await Product.find({ brand: { $in: names } }).select('brand').lean()
+      : []
+
+  const counts = new Map()
+  for (const r of productRows) {
+    counts.set(r.brand, (counts.get(r.brand) || 0) + 1)
+  }
+
+  const brands = rows.map((b) => ({
+    id: b.id,
+    name: b.name,
+    slug: b.slug,
+    active: b.active,
+    count: counts.get(b.name) || 0,
+  }))
+
+  res.json({ brands, page, limit, total, pages: Math.ceil(total / limit) })
 })
 
 export const createBrand = asyncHandler(async (req, res) => {
