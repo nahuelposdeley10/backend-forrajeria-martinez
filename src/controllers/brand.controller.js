@@ -72,8 +72,8 @@ export const createBrand = asyncHandler(async (req, res) => {
 
   const brand = await Brand.create({ name })
 
-  const [withCounts] = await withCounts([brand])
-  res.status(201).json({ brand: withCounts })
+  const [withCount] = await withCounts([brand])
+  res.status(201).json({ brand: withCount })
 })
 
 export const renameBrand = asyncHandler(async (req, res) => {
