@@ -35,7 +35,7 @@ export const listBrands = asyncHandler(async (req, res) => {
     Brand.countDocuments(filter),
     Brand.find(filter)
       .collation({ locale: 'es', strength: 2 })
-      .sort({ name: 1 })
+      .sort({ createdAt: -1, _id: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean(),
