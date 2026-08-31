@@ -16,11 +16,6 @@ async function main() {
     image: '/products/royalcanin.jpg',
     description:
       'Alimento para perros seniors de talla pequeña (hasta 10 kg), de 8 a 12 años de edad. Royal Canin Mini Adult 8+ aporta un contenido adaptado de nutrientes que ayudan a mantener la vitalidad frente a los primeros signos del envejecimiento.',
-    details: [
-      'Para perros de talla pequeña de 8 a 12 años',
-      'Aporte equilibrado de nutrientes',
-      'Con complejo exclusivo de antioxidantes',
-    ],
     benefits: [
       'Contribuye a mantener la vitalidad.',
       'Ayuda a mantener un peso saludable.',

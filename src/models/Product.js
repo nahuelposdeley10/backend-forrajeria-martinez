@@ -19,10 +19,6 @@ const productSchema = new Schema(
       type: String,
       default: '',
     },
-    details: {
-      type: [String],
-      default: [],
-    },
     benefits: {
       type: [String],
       default: [],

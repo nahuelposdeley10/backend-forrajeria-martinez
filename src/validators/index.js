@@ -29,7 +29,6 @@ export const productSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
   brand: z.string().optional(),
   description: z.string().optional(),
-  details: z.array(z.string()).optional(),
   benefits: z.array(z.string()).optional(),
   ingredients: z.array(z.string()).optional(),
   specifications: z.array(z.object({ label: z.string(), value: z.string() })).optional(),
