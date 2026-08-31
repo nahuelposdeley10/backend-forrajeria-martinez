@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 import { slugify } from '../utils/slugify.js'
 
-export const CATEGORIES = ['perros', 'gatos', 'aves', 'higiene', 'accesorios']
+export const CATEGORIES = ['perros', 'gatos', 'aves', 'higiene', 'accesorios', 'salud']
 
 const productSchema = new Schema(
   {
