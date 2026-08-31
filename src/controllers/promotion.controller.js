@@ -38,7 +38,7 @@ export const deletePromotion = asyncHandler(async (req, res) => {
 
 function toDTO(p) {
   return {
-    id: p.id,
+    id: p.id || p._id,
     title: p.title,
     image: p.image,
     description: p.description,
