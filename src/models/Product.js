@@ -23,6 +23,18 @@ const productSchema = new Schema(
       type: [String],
       default: [],
     },
+    benefits: {
+      type: [String],
+      default: [],
+    },
+    ingredients: {
+      type: [String],
+      default: [],
+    },
+    specifications: {
+      type: [{ label: String, value: String }],
+      default: [],
+    },
     price: {
       type: Number,
       required: [true, 'El precio es obligatorio'],
