@@ -17,6 +17,7 @@ function buildQuery(q) {
 
   if (q.category) and.push({ category: q.category })
   if (q.brand) and.push({ brand: q.brand })
+  if (q.foodType) and.push({ foodType: q.foodType })
   if (q.active === 'true') and.push({ active: true })
   if (q.active === 'false') and.push({ active: false })
   if (q.featured === 'true') and.push({ featured: true })
@@ -145,13 +146,15 @@ export const productFacets = asyncHandler(async (req, res) => {
   if (req.query.active !== 'all') scope.active = true
   if (req.query.category) scope.category = req.query.category
 
-  const rows = await Product.find(scope).select('name brand category').lean()
+  const rows = await Product.find(scope).select('name brand category foodType').lean()
 
   const categories = new Map()
   const brands = new Map()
+  const foodTypes = new Map()
   for (const r of rows) {
     categories.set(r.category, (categories.get(r.category) || 0) + 1)
     if (r.brand) brands.set(r.brand, (brands.get(r.brand) || 0) + 1)
+    if (r.foodType) foodTypes.set(r.foodType, (foodTypes.get(r.foodType) || 0) + 1)
   }
 
   const breeds = []
@@ -173,6 +176,11 @@ export const productFacets = asyncHandler(async (req, res) => {
     brands: [...brands.entries()]
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count),
+    foodTypes: [...foodTypes.entries()].map(([key, count]) => ({
+      key,
+      label: key === 'seco' ? 'Seco' : 'Húmedo',
+      count,
+    })),
     stages: STAGE_TAGS.map(({ key, label }) => ({ key, label })),
     sizes: SIZE_TAGS.map(({ key, label }) => ({ key, label })),
     breeds,

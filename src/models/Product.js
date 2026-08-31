@@ -44,6 +44,14 @@ const productSchema = new Schema(
       },
       default: 'perros',
     },
+    foodType: {
+      type: String,
+      enum: {
+        values: ['seco', 'humedo', ''],
+        message: 'Tipo de alimento inválido',
+      },
+      default: '',
+    },
     image: {
       type: String,
       default: '',
