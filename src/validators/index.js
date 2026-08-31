@@ -86,3 +86,17 @@ export const brandQuerySchema = z.object({
   page: z.coerce.number().int().min(1).optional(),
   limit: z.coerce.number().int().min(1).max(200).optional(),
 })
+
+export const promotionSchema = z.object({
+  title: z.string().trim().min(1, 'El título de la promoción es obligatorio'),
+  image: z.string().optional(),
+  description: z.string().optional(),
+  whatsappMessage: z.string().optional(),
+  active: z.boolean().optional(),
+  sortOrder: z.coerce.number().int().optional(),
+})
+
+export const promotionQuerySchema = z.object({
+  active: z.enum(['true', 'false', 'all']).optional(),
+  limit: z.coerce.number().int().min(1).max(100).optional(),
+})
